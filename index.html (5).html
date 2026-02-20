@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP-Club Pro — Lillimon Partnership Report</title>
+<meta name="description" content="Elite Twitch Partnership Analytics — VIP-Club Pro | Lillimon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #f5c842;
+  --gold2: #e8a000;
+  --gold-dim: rgba(245,200,66,0.15);
+  --gold-glow: rgba(245,200,66,0.35);
+  --red: #ff3a3a;
+  --red-dim: rgba(255,58,58,0.15);
+  --blue: #00c2ff;
+  --blue-dim: rgba(0,194,255,0.12);
+  --green: #00e676;
+  --green-dim: rgba(0,230,118,0.12);
+  --bg: #080b10;
+  --bg2: #0d1117;
+  --card: #0f1520;
+  --card2: #141c28;
+  --border: rgba(255,255,255,0.06);
+  --border-gold: rgba(245,200,66,0.25);
+  --text: #e8eaf0;
+  --muted: #6b7a99;
+  --muted2: #8a96b0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Exo 2', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* BACKGROUND */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 0%, rgba(245,200,66,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 90%, rgba(0,194,255,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(255,58,58,0.03) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: ambientShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes ambientShift {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* Grid texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245,200,66,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,200,66,0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.z1 { position: relative; z-index: 1; }
+
+/* ===================== HEADER ===================== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,11,16,0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border-gold);
+}
+
+.header-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 28px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-crown {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--gold2), var(--gold));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 0 24px var(--gold-glow), inset 0 1px 0 rgba(255,255,255,0.2);
+  animation: crownFloat 4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes crownFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-5px) rotate(2deg); }
+}
+
+.logo-text-wrap { display: flex; flex-direction: column; }
+
+.logo-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, var(--gold), #fff8d6, var(--gold));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.logo-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--gold2);
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 7px;
+  background: var(--card);
+  border: 1px solid var(--border-gold);
+  border-radius: 8px;
+}
+
+.badge-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--gold2), var(--gold));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1200;
+}
+
+.badge-info { display: flex; flex-direction: column; }
+
+.badge-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--gold);
+}
+
+.badge-role {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--muted2);
+  letter-spacing: 0.5px;
+}
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(0,230,118,0.08);
+  border: 1px solid rgba(0,230,118,0.25);
+  border-radius: 50px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--green);
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulseDot 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,230,118,0.7); }
+  50% { box-shadow: 0 0 0 6px rgba(0,230,118,0); }
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  padding: 60px 28px 36px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  border: 1px solid var(--border-gold);
+  padding: 5px 16px;
+  border-radius: 4px;
+  margin-bottom: 22px;
+  background: var(--gold-dim);
+  text-transform: uppercase;
+}
+
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: '◆';
+  font-size: 6px;
+  opacity: 0.6;
+}
+
+.hero h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(34px, 5.5vw, 58px);
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.05;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.hero h1 .accent {
+  background: linear-gradient(90deg, var(--gold2) 0%, var(--gold) 50%, #ffe57a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc {
+  font-size: 15px;
+  color: var(--muted2);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/* ===================== CONTAINER ===================== */
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 28px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===================== MAIN CARD ===================== */
+.report-card {
+  background: var(--card);
+  border: 1px solid var(--border-gold);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 60px rgba(245,200,66,0.06), 0 24px 60px rgba(0,0,0,0.4);
+}
+
+.report-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold2) 20%, var(--gold) 50%, var(--gold2) 80%, transparent 100%);
+}
+
+/* Corner accents */
+.report-card::after {
+  content: '';
+  position: absolute;
+  top: 3px; right: 0;
+  width: 120px; height: 120px;
+  background: radial-gradient(ellipse at top right, rgba(245,200,66,0.08), transparent 70%);
+  pointer-events: none;
+}
+
+/* ===================== STREAMER HEADER ===================== */
+.streamer-header {
+  padding: 32px 36px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 28px;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(245,200,66,0.03) 0%, transparent 60%);
+  flex-wrap: wrap;
+}
+
+.avatar-zone { position: relative; flex-shrink: 0; }
+
+.avatar-ring {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--gold2), var(--gold), var(--gold2));
+  box-shadow: 0 0 30px var(--gold-glow);
+}
+
+.avatar-ring img, .avatar-init {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--card);
+  display: block;
+}
+
+.avatar-init {
+  background: linear-gradient(135deg, #1a1200, #332200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.avatar-live {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: var(--green);
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: pulseDot 1.6s ease-in-out infinite;
+}
+
+.streamer-details h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.streamer-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.meta-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--muted2);
+  letter-spacing: 0.3px;
+}
+
+.meta-sep { color: var(--border-gold); font-size: 10px; }
+
+.rank-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  padding: 5px 14px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.completed-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(0,230,118,0.07);
+  border: 1px solid rgba(0,230,118,0.25);
+  border-radius: 8px;
+  align-self: flex-start;
+}
+
+.completed-badge .check { font-size: 18px; color: var(--green); }
+
+.completed-badge .cb-text { display: flex; flex-direction: column; }
+
+.cb-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.cb-value {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--green);
+  letter-spacing: 0.5px;
+}
+
+/* ===================== CAMPAIGN STRIP ===================== */
+.campaign-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--border);
+}
+
+.camp-cell {
+  padding: 18px 28px;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+
+.camp-cell:last-child { border-right: none; }
+
+.camp-cell::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 100%;
+  background: linear-gradient(180deg, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.camp-cell:hover::before { opacity: 1; }
+
+.camp-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.camp-value {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.3px;
+}
+
+/* ===================== DIVIDER ===================== */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 36px 0;
+}
+
+.divider-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-gold), transparent);
+}
+
+/* ===================== METRICS ===================== */
+.metrics-section { padding: 20px 36px 32px; border-bottom: 1px solid var(--border); }
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.metric-card {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 12px 12px 0 0;
+  transition: opacity 0.3s;
+}
+
+.metric-card.mc-gold::before { background: linear-gradient(90deg, var(--gold2), var(--gold)); }
+.metric-card.mc-red::before { background: linear-gradient(90deg, #c0392b, var(--red)); }
+.metric-card.mc-blue::before { background: linear-gradient(90deg, #0077b6, var(--blue)); }
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+}
+
+.mc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.mc-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.icon-gold { background: linear-gradient(135deg, rgba(245,200,66,0.25), rgba(245,200,66,0.05)); border: 1px solid rgba(245,200,66,0.2); }
+.icon-red { background: linear-gradient(135deg, rgba(255,58,58,0.25), rgba(255,58,58,0.05)); border: 1px solid rgba(255,58,58,0.2); }
+.icon-blue { background: linear-gradient(135deg, rgba(0,194,255,0.25), rgba(0,194,255,0.05)); border: 1px solid rgba(0,194,255,0.2); }
+
+.mc-change {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(0,230,118,0.1);
+  border: 1px solid rgba(0,230,118,0.25);
+  color: var(--green);
+  letter-spacing: 0.3px;
+}
+
+.mc-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.mc-value {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.gold-text { color: var(--gold); }
+.red-text { color: var(--red); }
+.blue-text { color: var(--blue); }
+
+.mc-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.prog-track {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.prog-fill {
+  height: 100%;
+  border-radius: 50px;
+  width: 0;
+  transition: width 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prog-gold { background: linear-gradient(90deg, var(--gold2), var(--gold)); }
+.prog-red { background: linear-gradient(90deg, #c0392b, var(--red)); }
+.prog-blue { background: linear-gradient(90deg, #0077b6, var(--blue)); }
+
+/* ===================== TIMELINE ===================== */
+.timeline-section { padding: 20px 36px 32px; border-bottom: 1px solid var(--border); }
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tl-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.tl-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.week-card {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.week-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold2), var(--gold));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.week-card:hover { transform: translateY(-3px); border-color: var(--border-gold); }
+.week-card:hover::after { transform: scaleX(1); }
+
+.wk-num {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--gold2);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wk-num::before {
+  content: '';
+  width: 14px;
+  height: 1px;
+  background: var(--gold2);
+}
+
+.wk-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.wk-bar {
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.bar-gold { background: var(--gold); }
+.bar-red { background: var(--red); }
+.bar-blue { background: var(--blue); }
+
+/* ===================== REVENUE ===================== */
+.revenue-section { padding: 20px 36px 32px; border-bottom: 1px solid var(--border); }
+
+.revenue-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.rev-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.revenue-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.rev-card {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 18px;
+  transition: all 0.3s ease;
+}
+
+.rev-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.rev-card.rev-highlight {
+  background: linear-gradient(135deg, rgba(245,200,66,0.06), rgba(245,200,66,0.02));
+  border-color: var(--border-gold);
+  box-shadow: 0 0 30px rgba(245,200,66,0.08);
+}
+
+.rev-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.rev-amount {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.amt-gold { color: var(--gold); }
+.amt-red { color: var(--red); }
+.amt-blue { color: var(--blue); }
+.amt-white {
+  background: linear-gradient(90deg, var(--gold), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===================== ACTIONS ===================== */
+.actions-section {
+  padding: 28px 36px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(245,200,66,0.02), transparent);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 8px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.btn:active::after { opacity: 0.07; }
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold2), var(--gold));
+  color: #1a1200;
+  box-shadow: 0 0 0 rgba(245,200,66,0);
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(245,200,66,0.35);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-gold);
+}
+
+.btn-outline:hover {
+  background: var(--gold-dim);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* ===================== MODAL ===================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(10px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--card);
+  border: 1px solid var(--border-gold);
+  border-radius: 16px;
+  padding: 0;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  transform: translateY(40px) scale(0.97);
+  transition: transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 60px rgba(245,200,66,0.08);
+}
+
+.modal-overlay.open .modal {
+  transform: translateY(0) scale(1);
+}
+
+.modal-top {
+  padding: 3px 0 0;
+  background: linear-gradient(90deg, transparent, var(--gold2), var(--gold), var(--gold2), transparent);
+}
+
+.modal-body { padding: 36px 36px 32px; }
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: var(--muted2);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+  z-index: 10;
+}
+
+.modal-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+
+.modal-crown {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--gold2), var(--gold));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 18px;
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+
+.modal-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.modal-desc {
+  font-size: 14px;
+  color: var(--muted2);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.modal-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.modal-price {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.modal-price-note {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.modal-features {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--gold2);
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+  padding: 10px 14px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.modal-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 15px;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.modal-contact {
+  border-top: 1px solid var(--border);
+  padding-top: 22px;
+}
+
+.contact-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.contact-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.contact-row .info { display: flex; flex-direction: column; }
+
+.contact-row .cl { font-size: 10px; color: var(--muted); font-family: 'Share Tech Mono', monospace; letter-spacing: 0.5px; }
+.contact-row .cv { font-size: 14px; font-weight: 600; color: var(--text); }
+
+/* ===================== FOOTER ===================== */
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border-gold);
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-logo {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-copy {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 900px) {
+  .streamer-header { grid-template-columns: auto 1fr; }
+  .completed-badge { grid-column: 1 / -1; width: fit-content; }
+  .campaign-strip { grid-template-columns: repeat(2, 1fr); }
+  .camp-cell:nth-child(2) { border-right: none; }
+  .metrics-grid { grid-template-columns: 1fr; }
+  .timeline-grid { grid-template-columns: repeat(2, 1fr); }
+  .revenue-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .streamer-header { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .streamer-meta-row { justify-content: center; }
+  .campaign-strip { grid-template-columns: 1fr; }
+  .camp-cell { border-right: none; border-bottom: 1px solid var(--border); }
+  .timeline-grid { grid-template-columns: 1fr; }
+  .revenue-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 30px; }
+  .actions-section { flex-direction: column; }
+  .btn { width: 100%; justify-content: center; }
+  .metrics-section, .timeline-section, .revenue-section, .actions-section, .streamer-header { padding-left: 20px; padding-right: 20px; }
+  .section-divider { padding: 20px 20px 0; }
+  .header-badge .badge-info { display: none; }
+  .status-pill span { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner z1">
+    <a href="#" class="logo">
+      <div class="logo-crown">♛</div>
+      <div class="logo-text-wrap">
+        <div class="logo-name">VIP-Club Pro</div>
+        <div class="logo-sub">Elite Partnership Network</div>
+      </div>
+    </a>
+    <div class="header-right">
+      <div class="status-pill">
+        <div class="pulse-dot"></div>
+        <span>SYSTEM ONLINE</span>
+      </div>
+      <div class="header-badge">
+        <div class="badge-avatar">VP</div>
+        <div class="badge-info">
+          <div class="badge-name">VIP-Club Pro</div>
+          <div class="badge-role">PLATFORM ADMIN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="z1">
+  <section class="hero">
+    <div class="hero-eyebrow">ELITE ANALYTICS · Q1 2026 · VERIFIED REPORT</div>
+    <h1>Partnership<br><span class="accent">Performance Report</span></h1>
+    <p class="hero-desc">Comprehensive campaign intelligence and growth analysis for verified VIP-Club Pro partner streamers.</p>
+  </section>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+    <div class="report-card">
+
+      <!-- STREAMER HEADER -->
+      <div class="streamer-header">
+        <div class="avatar-zone">
+          <div class="avatar-ring">
+            <img src="lillimon_avatar.jpg" alt="Lillimon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="avatar-init" style="display:none;">L</div>
+          </div>
+          <div class="avatar-live"></div>
+        </div>
+
+        <div class="streamer-details">
+          <h2>Lillimon</h2>
+          <div class="streamer-meta-row">
+            <div class="meta-chip">🎮 Gaming Streamer</div>
+            <div class="meta-sep">◆</div>
+            <div class="meta-chip">🇩🇪 Germany</div>
+            <div class="meta-sep">◆</div>
+            <div class="meta-chip">🤝 Partner since Nov 2025</div>
+          </div>
+          <div class="rank-tag">♛ RANK &nbsp;4,597 &nbsp;·&nbsp; VIP MEMBER</div>
+        </div>
+
+        <div class="completed-badge">
+          <div class="check">✔</div>
+          <div class="cb-text">
+            <div class="cb-label">Campaign Status</div>
+            <div class="cb-value">Completed</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMPAIGN STRIP -->
+      <div class="campaign-strip">
+        <div class="camp-cell">
+          <div class="camp-label">Campaign Type</div>
+          <div class="camp-value">Sponsored Streams + Showcase</div>
+        </div>
+        <div class="camp-cell">
+          <div class="camp-label">Duration</div>
+          <div class="camp-value">30 Days Campaign</div>
+        </div>
+        <div class="camp-cell">
+          <div class="camp-label">Total Streams</div>
+          <div class="camp-value">12 Live Streams</div>
+        </div>
+        <div class="camp-cell">
+          <div class="camp-label">Contract Value</div>
+          <div class="camp-value">$4,500 USD</div>
+        </div>
+      </div>
+
+      <!-- METRICS -->
+      <div class="section-divider">
+        <div class="divider-label">Growth Metrics</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="metrics-section">
+        <div class="metrics-grid">
+
+          <div class="metric-card mc-gold">
+            <div class="mc-header">
+              <div class="mc-icon icon-gold">👥</div>
+              <div class="mc-change">↑ +568</div>
+            </div>
+            <div class="mc-label">New Followers</div>
+            <div class="mc-value gold-text">568</div>
+            <div class="mc-sub">Total followers gained during campaign period</div>
+            <div class="prog-track"><div class="prog-fill prog-gold" data-width="78"></div></div>
+          </div>
+
+          <div class="metric-card mc-red">
+            <div class="mc-header">
+              <div class="mc-icon icon-red">⭐</div>
+              <div class="mc-change">↑ Peak: 944</div>
+            </div>
+            <div class="mc-label">Active Subscriptions</div>
+            <div class="mc-value red-text">944</div>
+            <div class="mc-sub">All-time high active subs achieved during campaign</div>
+            <div class="prog-track"><div class="prog-fill prog-red" data-width="95"></div></div>
+          </div>
+
+          <div class="metric-card mc-blue">
+            <div class="mc-header">
+              <div class="mc-icon icon-blue">⏱️</div>
+              <div class="mc-change">↑ +23.8K</div>
+            </div>
+            <div class="mc-label">Hours Watched</div>
+            <div class="mc-value blue-text">23,866</div>
+            <div class="mc-sub">Total viewing hours logged during campaign</div>
+            <div class="prog-track"><div class="prog-fill prog-blue" data-width="88"></div></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TIMELINE -->
+      <div class="section-divider">
+        <div class="divider-label">Weekly Breakdown</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="timeline-section">
+        <div class="timeline-header">
+          <div class="tl-title">📈 Weekly Performance Timeline</div>
+          <div class="tl-badge">30-Day Campaign</div>
+        </div>
+        <div class="timeline-grid">
+          <div class="week-card">
+            <div class="wk-num">Week 01</div>
+            <div class="wk-stat"><div class="wk-bar bar-gold"></div>+142 Followers</div>
+            <div class="wk-stat"><div class="wk-bar bar-red"></div>+187 Subs</div>
+            <div class="wk-stat"><div class="wk-bar bar-blue"></div>5.2K Hours</div>
+          </div>
+          <div class="week-card">
+            <div class="wk-num">Week 02</div>
+            <div class="wk-stat"><div class="wk-bar bar-gold"></div>+156 Followers</div>
+            <div class="wk-stat"><div class="wk-bar bar-red"></div>+245 Subs</div>
+            <div class="wk-stat"><div class="wk-bar bar-blue"></div>6.8K Hours</div>
+          </div>
+          <div class="week-card">
+            <div class="wk-num">Week 03</div>
+            <div class="wk-stat"><div class="wk-bar bar-gold"></div>+138 Followers</div>
+            <div class="wk-stat"><div class="wk-bar bar-red"></div>+298 Subs</div>
+            <div class="wk-stat"><div class="wk-bar bar-blue"></div>6.1K Hours</div>
+          </div>
+          <div class="week-card">
+            <div class="wk-num">Week 04</div>
+            <div class="wk-stat"><div class="wk-bar bar-gold"></div>+132 Followers</div>
+            <div class="wk-stat"><div class="wk-bar bar-red"></div>+214 Subs</div>
+            <div class="wk-stat"><div class="wk-bar bar-blue"></div>5.7K Hours</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVENUE -->
+      <div class="section-divider">
+        <div class="divider-label">Revenue Analysis</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="revenue-section">
+        <div class="revenue-header">
+          <div class="rev-title">💰 Revenue Impact Analysis</div>
+        </div>
+        <div class="revenue-grid">
+          <div class="rev-card">
+            <div class="rev-label">Sponsorship Payment</div>
+            <div class="rev-amount amt-gold">$4,500</div>
+          </div>
+          <div class="rev-card">
+            <div class="rev-label">Subscription Revenue</div>
+            <div class="rev-amount amt-red">$2,832</div>
+          </div>
+          <div class="rev-card">
+            <div class="rev-label">Bits & Donations</div>
+            <div class="rev-amount amt-blue">$847</div>
+          </div>
+          <div class="rev-card rev-highlight">
+            <div class="rev-label">Total Campaign Revenue</div>
+            <div class="rev-amount amt-white">$8,179</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="actions-section">
+        <button class="btn btn-gold" onclick="openModal()">📊 Download Full Report</button>
+        <a href="https://www.twitch.tv/lillimon" target="_blank" class="btn btn-outline">💬 Visit Channel</a>
+        <a href="mailto:VIP-CLUBPRO@GMAIL.COM?subject=New Partnership Request" class="btn btn-outline">🔄 Request New Partnership</a>
+      </div>
+
+    </div><!-- /report-card -->
+  </div><!-- /container -->
+</div><!-- /z1 -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">♛ VIP-Club Pro</div>
+  <div class="footer-copy">© 2026 VIP-Club Pro · VIP-CLUBPRO@GMAIL.COM · All rights reserved</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="bgClose(event)">
+  <div class="modal">
+    <div class="modal-top"></div>
+    <div class="modal-body">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-crown">📊</div>
+      <div class="modal-title">Download Full Analytics Report</div>
+      <div class="modal-desc">Get comprehensive insights including detailed breakdowns, engagement metrics, ROI analysis, and personalized recommendations for future partnerships.</div>
+      <div class="modal-price-row">
+        <div class="modal-price">$29.99</div>
+        <div class="modal-price-note">ONE-TIME PAYMENT</div>
+      </div>
+      <div class="modal-features">♛ Professional PDF Report &nbsp;·&nbsp; Lifetime Access &nbsp;·&nbsp; All Data Included</div>
+      <button class="btn btn-gold modal-btn" onclick="proceedPayment()">🔒 Proceed to Payment</button>
+      <div class="modal-contact">
+        <div class="contact-title">Contact to complete payment</div>
+        <div class="contact-row">
+          <div class="contact-icon">📧</div>
+          <div class="info">
+            <div class="cl">Email</div>
+            <div class="cv">VIP-CLUBPRO@GMAIL.COM</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">💬</div>
+          <div class="info">
+            <div class="cl">Discord</div>
+            <div class="cv">vipclubpro_</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">🐦</div>
+          <div class="info">
+            <div class="cl">Twitter / X</div>
+            <div class="cv">@Vip-clubpro</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Animate progress bars
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.prog-fill[data-width]').forEach(el => {
+        el.style.width = el.dataset.width + '%';
+      });
+    }, 400);
+  });
+
+  // Modal
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function bgClose(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  function proceedPayment() {
+    window.location.href = 'mailto:VIP-CLUBPRO@GMAIL.COM?subject=Full Report Payment - Lillimon Dashboard&body=Hi, I would like to purchase the full analytics report for $29.99.';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Ripple effect
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const ripple = document.createElement('span');
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.cssText = `
+        position:absolute;width:${size}px;height:${size}px;
+        left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;
+        background:rgba(255,255,255,0.15);border-radius:50%;
+        transform:scale(0);animation:ripple 0.5s ease-out;pointer-events:none;
+      `;
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 500);
+    });
+  });
+
+  // Vercel Web Analytics
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+
+  // Vercel Speed Insights
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+
+<style>
+  @keyframes ripple { to { transform: scale(2.5); opacity: 0; } }
+</style>
+
+</body>
+</html>
